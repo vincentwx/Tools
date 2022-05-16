@@ -9,5 +9,7 @@ It has the following features:
   4. It uses SQL with parameters for database query and update. it does not use LINQ.
   5. The performance is close to raw ADO.Net
   6. It's easy to handle SQL transaction.
-  7. Egen is the utility project you use to generate model and entity. You also use this utility to script the database schema and save it with you application for database migration
-  8. DbTest is a demo project for the use of EntityToDB.
+
+Egen is the utility project you use to generate model and entity. You also use this utility to script the database schema and save it with you application for database migration
+
+DbTest is a demo project for the use of EntityToDB.
