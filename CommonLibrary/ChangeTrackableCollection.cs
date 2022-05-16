@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonTools
+namespace CommonLibrary
 {
 	[System.Flags]
 	public enum ObjectState : ushort { Added = 1, Unchanged = 2, Deleted = 4, Modified = 8 }

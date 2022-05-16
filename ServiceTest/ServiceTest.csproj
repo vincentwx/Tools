@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommonTools\CommonTools.csproj" />
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
     <ProjectReference Include="..\DbService\DbService.csproj" />
     <ProjectReference Include="..\EntityToDB\EntityToDB.csproj" />
   </ItemGroup>
