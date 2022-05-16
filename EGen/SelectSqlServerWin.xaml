@@ -1,0 +1,39 @@
+﻿<Window x:Class="EGen.SelectSqlServerWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EGen"
+        mc:Ignorable="d"
+        Title="Select SQL Server" Height="180" Width="400" WindowStartupLocation="CenterOwner">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Label Grid.Row="0" Grid.Column="0" Content="Server"/>
+			<TextBox Grid.Row="0" Grid.Column="1" Text="localhost" VerticalAlignment="Center" Margin="4" x:Name="c_server"/>
+			<Label Grid.Row="1" Grid.Column="0" Content="Use Name"/>
+			<TextBox Grid.Row="1" Grid.Column="1" Text="" VerticalAlignment="Center" Margin="4" x:Name="c_userName"/>
+			<Label Grid.Row="2" Grid.Column="0" Content="Password"/>
+			<PasswordBox Grid.Row="2" Grid.Column="1" Password="" VerticalAlignment="Center" Margin="4" x:Name="c_password"/>
+
+		</Grid>
+		<Grid Grid.Row="1">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+				<Button Content="OK" Margin="4" Width="80" Click="OKClick" IsDefault="True"/>
+				<Button Content="Cancel" Margin="4" Width="80" IsCancel="True"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</Window>
