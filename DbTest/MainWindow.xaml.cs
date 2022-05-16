@@ -31,7 +31,7 @@ namespace DbTest
 		private string GetConnectionString()
 		{
 			SqlConnectionStringBuilder connStrBuilder = new SqlConnectionStringBuilder();
-			connStrBuilder.DataSource = @".\sqlexpress";
+			connStrBuilder.DataSource = @".\Express17";
 			connStrBuilder.InitialCatalog = "TSData";
 			connStrBuilder.IntegratedSecurity = true;
 
