@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DbService
 {
-	internal class DbServiceController
+	public class DbServiceController
 	{
 	}
 }
