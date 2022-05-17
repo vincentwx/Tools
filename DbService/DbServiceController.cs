@@ -8,5 +8,6 @@ namespace DbService
 {
 	public class DbServiceController
 	{
+		string s = "Stop"
 	}
 }
