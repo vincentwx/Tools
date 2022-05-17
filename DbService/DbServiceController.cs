@@ -9,6 +9,7 @@ namespace DbService
 	public class DbServiceController
 	{
 		string s = "Stop";
-		string t = "OK";
+		string s1 = cancel;
+			
 	}
 }
