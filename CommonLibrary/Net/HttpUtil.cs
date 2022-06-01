@@ -21,6 +21,17 @@ namespace CommonLibrary
 			StreamContent streamContent = new StreamContent(memStream);
 			return streamContent;
 		}
+		public static Stream CreateStream(string text)
+		{
+			MemoryStream memStream = new MemoryStream();
+			using (GZipStream compressStream = new GZipStream(memStream, CompressionMode.Compress, true))
+			{
+				byte[] data = Encoding.UTF8.GetBytes(text);
+				compressStream.Write(data, 0, data.Length);
+			}
+			memStream.Position = 0;
+			return memStream;
+		}
 		public static string ExtractText(Stream contentStream)
 		{
 			MemoryStream memStream = new MemoryStream();

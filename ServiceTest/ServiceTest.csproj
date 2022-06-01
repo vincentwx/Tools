@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
-    <ProjectReference Include="..\DbService\DbService.csproj" />
+    <ProjectReference Include="..\DbService\AppService.csproj" />
     <ProjectReference Include="..\EntityToDB\EntityToDB.csproj" />
   </ItemGroup>
 
