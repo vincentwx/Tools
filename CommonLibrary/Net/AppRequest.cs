@@ -3,91 +3,141 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Reflection;
 
 namespace CommonLibrary
 {
-	
-	public class AppRequest: Dictionary<string, object>
+	public class AppRequest
 	{
-		public static AppRequest Parase(string jstr)
-		{
-			var req = JsonSerializer.Deserialize<AppRequest>(jstr);
-			return req;
-		}
+		private JObject m_jo;
 
 		public string RequestCode
 		{
 			get
 			{
-				if (this.ContainsKey("RequestCode"))
-					return (string)this[RequestCode];
-				else
-					return "";
-			}
-			set { this["RequestCode"] = value; }
-		}
-		public Type EntityType
-		{
-			get {
-				string strType =(string) this["EntityType"];
-				Type type = Type.GetType(strType);
-				return type;
+				return Get<string>("RequestCode");
 			}
 			set
 			{
-				string strType = Assembly.CreateQualifiedName(value.Assembly.GetName().Name, value.FullName);
-				this["EntityType"] = strType;
+				Set("RequestCode", value);
 			}
+		}
+		public AppRequest()
+		{
+			m_jo = new JObject();
+		}
+		public AppRequest(string jstr)
+		{
+			m_jo = JObject.Parse(jstr);
+		}
+		public T Get<T>(string name)
+		{
+			T o = m_jo.Get<T>(name);
+			return o;
+		}
+		public T TryGet<T>(string name)
+		{
+			T o = m_jo.TryGet<T>(name);
+			return o;
+		}
+		public object Get(Type type, string name)
+		{
+			object o = m_jo.GetValue(name).ToObject(type);
+			return o;
+		}
+		public List<object> GetList(Type type, string name)
+		{
+			List<object> list = m_jo.GetList(type, name);
+			return list;
+		}
+		public List<ChangeRecord<object>> GetChangeList(Type type, string name)
+		{
+			List<ChangeRecord<object>> list = new List<ChangeRecord<object>>();
+			JArray ja = m_jo.Value<JArray>(name);
+			foreach (JObject jo in ja)
+			{
+				object curnet = jo.GetValue("Current").ToObject(type);
+				object original = jo.GetValue("Original").ToObject(type);
+				string str = jo.GetValue("State").ToString();
+				ObjectState state = (ObjectState) Enum.Parse(typeof(ObjectState), str);
+
+				ChangeRecord<object> record = new CommonLibrary.ChangeRecord<object> { Current = curnet, Original = original, State = state };
+				list.Add(record);
+			}
+			return list;
+		}
+		public void Set<T>(string name, T o)
+		{
+			m_jo.Set(name, o);
 		}
 		public void SetParameters(object[] args)
 		{
-			List<Parameter> paramList = new List<Parameter>();
-			foreach (object o in args)
+			JArray ja = new JArray();
+			foreach(object o in args)
 			{
-				Parameter param = new Parameter() { TypeName = o.GetType().Name, Value = o };
-				paramList.Add(param);
+				JObject jo = new JObject();
+
+				jo.Add("TypeName", o.GetType().Name);
+				jo.Add("Val", JToken.FromObject(o));
+
+				ja.Add(jo);
 			}
-			this["Parameters"] = paramList;
+			m_jo.Set("Parameters", ja);
+
 		}
 		public object[] GetParameters()
 		{
-			if (!this.ContainsKey("Parameters"))
-				return new object[0];	
-			JsonElement je =(JsonElement)this["Parameters"];
-			List<Parameter> paramList = je.Deserialize<List<Parameter>>();
-
-			object[] args = new object[paramList.Count];
-			for (int i = 0; i < paramList.Count; i++)
+			JArray ja = m_jo.Value<JArray>("Parameters");
+			if (ja == null)
+				return new object[0];
+			object[] args = new object[ja.Count];
+			for (int i = 0; i < ja.Count; i++)
 			{
-				Parameter param = paramList[i];
+				JObject jo = (JObject)ja[i];
 				object o = null;
-				string typeName = param.TypeName;
-				JsonElement jeVal = (JsonElement)param.Value;
+				string typeName = jo.Value<string>("TypeName");
 				if (typeName == "Int32")
-					o = jeVal.Deserialize<int>();
+					o = jo.Value<int>("Val");
 				else if (typeName == "String")
-					o = jeVal.Deserialize<string>();
+					o = jo.Value<string>("Val");
 				else if (typeName == "Decimal")
-					o = jeVal.Deserialize<decimal>();
+					o = jo.Value<decimal>("Val");
 				else if (typeName == "Double")
-					o = jeVal.Deserialize<double>();
+					o = jo.Value<double>("Val");
 				else if (typeName == "DateTime")
-					o = jeVal.Deserialize<DateTime>();
+					o = jo.Value<DateTime>("Val");
 				else if (typeName == "DateTimeOffset")
-					o = jeVal.Deserialize<DateTimeOffset>();
+					o = jo.Value<DateTimeOffset>("Val");
 				else if (typeName == "Int16")
-					o = jeVal.Deserialize<short>();
+					o = jo.Value<short>("Val");
 				else if (typeName == "Int64")
-					o = jeVal.Deserialize<long>();
+					o = jo.Value<long>("Val");
 				else if (typeName == "Byte")
-					o = jeVal.Deserialize<byte>();
+					o = jo.Value<byte>("Val");
 				else if (typeName == "Single")
-					o = jeVal.Deserialize<float>();
+					o = jo.Value<float>("Val");
 				args[i] = o;
 			}
 			return args;
+		}
+
+		public void SetEntityType(Type type)
+		{
+			string strType = 	Assembly.CreateQualifiedName(type.Assembly.GetName().Name, type.FullName);
+			m_jo.Set("EntityType", strType);
+		}
+		public Type GetEntityType()
+		{
+			string strType = m_jo.Get<string>("EntityType");
+
+			Type type = Type.GetType(strType);
+			return type;
+		}
+		public override string ToString()
+		{
+			string jstr = m_jo.ToString();
+			return jstr;
 		}
 	}
 }

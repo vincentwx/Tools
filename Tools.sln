@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTest", "ServiceTest\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbService", "DbService\DbService.csproj", "{76B80B59-9DFB-4569-BC57-1D04913BA007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{1F60042F-164A-412E-89B7-368D856BF51B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{1F60042F-164A-412E-89B7-368D856BF51B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteDbTest", "RemoteDbTest\RemoteDbTest.csproj", "{4275A376-25C2-4479-A2FA-486F444002F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{1F60042F-164A-412E-89B7-368D856BF51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F60042F-164A-412E-89B7-368D856BF51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F60042F-164A-412E-89B7-368D856BF51B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4275A376-25C2-4479-A2FA-486F444002F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4275A376-25C2-4479-A2FA-486F444002F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4275A376-25C2-4479-A2FA-486F444002F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4275A376-25C2-4479-A2FA-486F444002F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
