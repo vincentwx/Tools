@@ -6,27 +6,28 @@ using AppService;
 using EntityToDB;
 namespace ServiceTest.Controllers
 {
-	[Route("[controller]")]
 	[ApiController]
+	[Route("[controller]")]
 	public class ServiceMainController : ControllerBase
 	{
+		[HttpGet]
 		public string Get()
 		{
 			return "Reached Service Hub:" + DateTime.Now.ToLongTimeString();
 		}
 
-		[ActionName("Process")]
-		public HttpResponseMessage Process(HttpRequestMessage reqMsg)
+		[HttpPost]
+		public IActionResult Process()
 		{
 
-			string jreq = HttpUtil.ExtractRequest(reqMsg);
+			string jreq = HttpUtil.ExtractText(Request.Body);
 			AppRequest req = new AppRequest(jreq);
 			AppResponse rsp = ProcessRequest(req);
 			string jrsp = rsp.ToString();
-			HttpResponseMessage rspMsg = HttpUtil.CreateResponse(jrsp);
-			return rspMsg;
+			var rspStream  = HttpUtil.CreateStream(jrsp);
+			return File(rspStream, "application/octet-stream");
 		}
-		public AppResponse ProcessRequest(AppRequest req)
+		private AppResponse ProcessRequest(AppRequest req)
 		{
 			try
 			{
@@ -34,7 +35,7 @@ namespace ServiceTest.Controllers
 
 				string reqCode = req.RequestCode;
 
-				string connectionString = DbUtil.GetConnectionString(@".\EXPRESS17", "TSData", "", "");
+				string connectionString = DbUtil.GetConnectionString(@".\EXPRESS17", "", "", "TSData");
 
 				using (TSDataDatabase.TSDataDbHandle db = new TSDataDatabase.TSDataDbHandle(connectionString))
 				{

@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
     <ProjectReference Include="..\EntityToDB\EntityToDB.csproj" />
+    <ProjectReference Include="..\TSModel\TSModel.csproj" />
   </ItemGroup>
 
 </Project>

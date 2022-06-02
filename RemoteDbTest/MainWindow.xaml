@@ -35,6 +35,7 @@
 			<Button Content="Update Range" Click="UpdateRangeClick"/>
 			<Button Content="Delete Range" Click="DeleteRangeClick"/>
 			<Button Content="Edit/Save" Click="SaveClick"/>
+			<Button Content="Echo" Click="EchoClick"/>
 		</StackPanel>
 		<TextBox Grid.Row="2" BorderBrush="LightGray" BorderThickness="1" AcceptsReturn="True" AcceptsTab="True" x:Name="c_info"/>
 		<DataGrid Grid.Row="3" BorderBrush="LightGray" BorderThickness="1" IsReadOnly="True" AutoGenerateColumns="True" x:Name="c_grid"/>

@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteDbTest", "RemoteDbTest\RemoteDbTest.csproj", "{4275A376-25C2-4479-A2FA-486F444002F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSModel", "TSModel\TSModel.csproj", "{6938C362-5BCE-45E3-AF2E-40267C7A3F32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4275A376-25C2-4479-A2FA-486F444002F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4275A376-25C2-4479-A2FA-486F444002F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4275A376-25C2-4479-A2FA-486F444002F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6938C362-5BCE-45E3-AF2E-40267C7A3F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6938C362-5BCE-45E3-AF2E-40267C7A3F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6938C362-5BCE-45E3-AF2E-40267C7A3F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6938C362-5BCE-45E3-AF2E-40267C7A3F32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

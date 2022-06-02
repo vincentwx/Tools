@@ -28,12 +28,233 @@ namespace RemoteDbTest
 		{
 			InitializeComponent();
 			m_connector = new AppConnector();
-			m_connector.ServerHost = "http://localhost:2015";
+			m_connector.ServerHost = "http://localhost:5018";
 		}
 
-		private void ReadClick(object sender, RoutedEventArgs e)
+		private async void ReadClick(object sender, RoutedEventArgs e)
 		{
-			
+			try
+			{
+				var list = await m_connector.ReadAsync<tCustomer>("where Country = {0}", "US");
+				c_grid.ItemsSource = list;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		private async void ReadTypeClick(object sender, RoutedEventArgs e)
+		{
+
+	
+
+		}
+		private void FindClick(object sender, RoutedEventArgs e)
+		{
+	
+		}
+
+		private void FindTypeClick(object sender, RoutedEventArgs e)
+		{
+	
+		}
+
+		private async void QueryClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+
+				
+				var list = await m_connector.QueryAsync<vCustomerSite>("select * from vCustomerSite where CustomerID < {0}", 200);
+				c_grid.ItemsSource = list;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.GetDescription());
+			}
+
+		}
+
+
+
+		private async void InsertClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				
+				tCustomer cust = new tCustomer() { CustomerID = 123456, CustomerName = "Test Customer" };
+				await m_connector.InsertAsync(cust);
+				MessageBox.Show("Test Customer Added");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+
+		}
+
+		private async void UpdateClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				
+				tCustomer cust = await m_connector.FindAsync<tCustomer>("where CustomerID = {0}", 123456);
+				if (cust != null)
+				{
+					cust.CustomerName = "Test Customer New Name";
+					m_connector.Update(cust);
+
+					c_grid.ItemsSource = await m_connector.ReadAsync<tCustomer>("where CustomerID = 123456");
+
+					MessageBox.Show("Customer name changed");
+				}
+				else
+				{
+					MessageBox.Show("Customer not found");
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		private async void DeleteClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				
+				tCustomer cust = await m_connector.FindAsync<tCustomer>("where CustomerID = {0}", 123456);
+				if (cust != null)
+				{
+
+					await m_connector.DeleteAsync(cust);
+
+					c_grid.ItemsSource = await m_connector.ReadAsync<tCustomer>("where CustomerID = 123456");
+
+					MessageBox.Show("Test Customer deleted");
+				}
+				else
+				{
+					MessageBox.Show("Customer not found");
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+
+		}
+
+		private async void InsertRangeClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				List<tCustomer> list = new List<tCustomer>();
+				for (int i = 0; i <= 10; i++)
+				{
+					list.Add(new tCustomer() { CustomerID = 200000 + i, CustomerName = "Customer " + i.ToString() });
+				}
+
+				
+				try
+				{
+					
+					await m_connector.InsertRangeAsync(list);
+					
+				}
+				catch (Exception ex)
+				{
+				
+					MessageBox.Show(ex.Message);
+				}
+				c_grid.ItemsSource = await m_connector.ReadAsync<tCustomer>("where CustomerID >= 200000");
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		private async void DeleteRangeClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+
+				
+				var list =  await m_connector.ReadAsync<tCustomer>("where CustomerID >= 200000");
+
+				await m_connector.DeleteRangeAsync(list);
+
+				c_grid.ItemsSource = await m_connector.ReadAsync<tCustomer>("where CustomerID >= 200000");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		private async void UpdateRangeClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{			
+				var list = await m_connector.ReadAsync<tCustomer>("where CustomerID >= 200000");
+
+				foreach (var cust in list)
+					cust.Country = "US";
+				try
+				{
+					await m_connector.UpdateRangeAsync(list);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+				}
+
+				c_grid.ItemsSource = await m_connector.ReadAsync<tCustomer>("where CustomerID >= 200000");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		private async void SaveClick(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+
+				
+				var list = m_connector.Read<tCustomer>("where CustomerID >= 200000");
+
+				ChangeTrackableCollection<tCustomer> collection = new ChangeTrackableCollection<tCustomer>(list);
+
+				//Change 
+
+				collection[0].City = "Vancouter";
+
+				//Delete
+
+				collection.RemoveAt(1);
+
+				collection.Add(new tCustomer { CustomerID = 300000, CustomerName = "Customer 300000" });
+
+				await m_connector.SaveAsync(collection);
+
+				c_grid.ItemsSource = m_connector.Read<tCustomer>("where CustomerID >= 200000");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		private void EchoClick(object sender, RoutedEventArgs e)
+		{
 
 			AppRequest req = new AppRequest();
 			req.RequestCode = "Echo";
@@ -50,78 +271,6 @@ namespace RemoteDbTest
 			{
 				MessageBox.Show(ex.Message);
 			}
-		}
-
-		private void ReadTypeClick(object sender, RoutedEventArgs e)
-		{
-	
-		}
-		private void FindClick(object sender, RoutedEventArgs e)
-		{
-	
-		}
-
-		private void FindTypeClick(object sender, RoutedEventArgs e)
-		{
-	
-		}
-
-		private void QueryClick(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				
-
-				var list = m_connector.Query<tCustomer>("select * from TCustomer where AccountID < {0} and Country = {1}", 300, "US");
-
-				//var list = m_connector.Query<tCustomer>("select top 10 * from tCustomer");
-
-
-				//int deptID = 1;
-				//var list = connector.Read<TEmployee>("where DeptID = {0}", deptID);
-
-				MessageBox.Show("OK");
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.GetDescription());
-			}
-
-		}
-
-		private void InsertClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-		private void UpdateClick(object sender, RoutedEventArgs e)
-		{
-	
-		}
-
-		private void DeleteClick(object sender, RoutedEventArgs e)
-		{
-	
-
-		}
-
-		private void InsertRangeClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void DeleteRangeClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void UpdateRangeClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void SaveClick(object sender, RoutedEventArgs e)
-		{
-
 		}
 	}
 }

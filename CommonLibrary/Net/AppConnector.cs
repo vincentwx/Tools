@@ -72,7 +72,7 @@ namespace CommonLibrary
 			HttpClient httpClient = new HttpClient();
 			httpClient.Timeout = new TimeSpan(0, 0, 30);
 			StreamContent streamContent = HttpUtil.CreateStreamContent(jreq);
-			string url = ServerHost + "/api/ServiceMain/Process";
+			string url = ServerHost + "/ServiceMain";
 			HttpResponseMessage httpRsp = await httpClient.PostAsync(url, streamContent).ConfigureAwait(false);
 			if (httpRsp.IsSuccessStatusCode)
 			{
