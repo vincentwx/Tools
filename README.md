@@ -13,3 +13,5 @@ It has the following features:
 Egen is the utility project you use to generate model and entity. You also use this utility to script the database schema and save it with you application for database migration
 
 DbTest is a demo project for the use of EntityToDB.
+
+Based on EntityToDB, project RemoteDBTest and TestService demonstrates how to provide generaral data service to client tier. the client side works on Windows, Andorid and iOS.
