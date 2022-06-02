@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbTest", "DbTest\DbTest.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTest", "ServiceTest\ServiceTest.csproj", "{BD1D98F5-6F4F-4BF1-948C-1487E718B129}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppService", "DbService\AppService.csproj", "{76B80B59-9DFB-4569-BC57-1D04913BA007}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppService", "AppService\AppService.csproj", "{76B80B59-9DFB-4569-BC57-1D04913BA007}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{1F60042F-164A-412E-89B7-368D856BF51B}"
 EndProject

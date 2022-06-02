@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppService\AppService.csproj" />
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
-    <ProjectReference Include="..\DbService\AppService.csproj" />
     <ProjectReference Include="..\EntityToDB\EntityToDB.csproj" />
     <ProjectReference Include="..\TSModel\TSModel.csproj" />
   </ItemGroup>
