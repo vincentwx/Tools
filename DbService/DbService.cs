@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 namespace AppService
 {
-	public class DbService
+	public class DbService : AppServiceBase
 	{
 		private DbHandle m_db;
 		public DbService(DbHandle db)

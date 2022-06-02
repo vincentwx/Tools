@@ -13,6 +13,25 @@ namespace EntityToDB
 
 	public static class DbUtil
 	{
+		public static string GetConnectionString(string server, string userName, string password, string dbName)
+		{
+			SqlConnectionStringBuilder connStrBuilder = new SqlConnectionStringBuilder();
+			connStrBuilder.DataSource = server;
+			if (string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
+			{
+				connStrBuilder.IntegratedSecurity = true;
+				connStrBuilder.InitialCatalog = dbName;
+			}
+			else
+			{
+				connStrBuilder.UserID = userName;
+				connStrBuilder.Password = password;
+			}
+
+			string connStr = connStrBuilder.ToString();
+
+			return connStr;
+		}
 		public static string FormatSql(string sql)
 		{
 			MatchCollection list = Regex.Matches(sql, "{[0-9]*}");
