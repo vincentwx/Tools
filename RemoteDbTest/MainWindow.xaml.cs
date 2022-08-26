@@ -29,6 +29,7 @@ namespace RemoteDbTest
 			InitializeComponent();
 			m_connector = new AppConnector();
 			m_connector.ServerHost = "http://localhost:5018";
+
 		}
 
 		private async void ReadClick(object sender, RoutedEventArgs e)
